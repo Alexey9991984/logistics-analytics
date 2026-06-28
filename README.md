@@ -1,94 +1,131 @@
 # Logistics Transport — Data Analytics Project
 
-A end-to-end data project for a logistics company tracking truck trips, trailer usage, driver assignments, and route efficiency across Europe.
+An end-to-end data analytics project for a logistics company focused on tracking truck trips, trailer usage, driver assignments, and route efficiency across Europe.
 
 Built with **PostgreSQL** and visualized in **Power BI**.
 
+> 🚧 **Project Status: In Development**
+>
+> This project is actively being expanded and improved. New datasets, analytical views, KPIs, and Power BI dashboards are continuously being added.
+
 ---
 
-## Dashboard preview
+## Dashboard Preview
 
 ![Dashboard Overview](screenshots/dashboard_overview.PNG)
+
 ![Empty KM Analysis](screenshots/dashboard_empty_km.PNG)
 
 ---
 
-## Project structure
+## Project Structure
 
-```
-├── sql/
-│   ├── DDL_schema.sql               # Database schema
-│   ├── drivers.sql                  # Seed data — drivers
-│   ├── addtrucks.sql                # Seed data — trucks
-│   ├── addtrailers.sql              # Seed data — trailers
+```text
+├── SQL/
+│   ├── DDL_schema.sql
+│   ├── drivers.sql
+│   ├── addtrucks.sql
+│   ├── addtrailers.sql
 │   ├── trip2026_03_22-2026_04_03.sql
 │   ├── trip2026_04_12-2026_04_24.sql
 │   ├── trip2026_05_25-2026_06_12.sql
-│   ├── vw_trip_analysis_logistic.sql  # Main analytical view
-│   └── DML_queries.sql              # Analytical queries
-├── screenshots/                     # Dashboard screenshots
-└── powerbi/
-    └── logistic.pbix                # Power BI report
+│   ├── vw_trip_analysis_logistic.sql
+│   └── DML_queries.sql
+│
+├── screenshots/
+│
+├── powerbi/
+│   └── logistic.pbix
+│
+└── README.md
 ```
 
 ---
 
-## Database schema
+## Database Schema
 
-```
-drivers         — driver registry
-trucks          — truck registry
-trailers        — trailer registry (tank / container)
-trips           — trip records linking driver + truck + trailer
-trip_events     — event log per trip (load / unload / wash / start / finish)
-truck_driver_assignments   — history of driver-truck assignments
-truck_trailer_assignments  — history of truck-trailer assignments
-```
+### Core Tables
 
-The core analytical view `vw_trip_analysis` joins all tables and adds:
-- window functions for event sequencing per truck
-- `km_from_previous_event`, `km_to_next_event` — distance between stops
-- `movement_type` — classifies each leg (loaded_trip / empty_trip / service_trip)
-- `full_operational_cycle` — shows the flow pattern around each event
-- stop duration, time between events, wash efficiency flags
+* **drivers** — driver registry
+* **trucks** — truck registry
+* **trailers** — trailer registry
+* **trips** — trip records linking drivers, trucks, and trailers
+* **trip_events** — operational event log
+* **truck_driver_assignments** — driver-truck assignment history
+* **truck_trailer_assignments** — truck-trailer assignment history
 
----
+### Analytical View
 
-## Key metrics tracked
+The core analytical view **vw_trip_analysis_logistic** joins all operational tables and provides:
 
-| Metric | Description |
-|--------|-------------|
-| Total km | Odometer-based distance per trip |
-| Loaded km | Distance driven with cargo |
-| Empty km | Distance driven without cargo |
-| Empty % | Share of empty distance out of total |
-| Average empty KM | Average empty leg distance |
-| Stop duration | Time spent at each location |
-| Wash efficiency | Flags long detours to cleaning stations |
+* Event sequencing using SQL window functions
+* Distance calculations between logistics events
+* Loaded vs Empty movement classification
+* Operational cycle tracking
+* Stop duration analysis
+* Wash station efficiency monitoring
+
+Additional calculated fields include:
+
+* `km_from_previous_event`
+* `km_to_next_event`
+* `movement_type`
+* `full_operational_cycle`
 
 ---
 
-## Power BI report
+## Key Metrics
 
-3-page report connected live to PostgreSQL:
-
-- **Page 1 — Overview**: trip summary table with filters by truck, trailer, driver, date
-- **Page 2 — Empty KM**: bar chart of empty km by location, table with movement types
-- **Page 3 — (additional analysis)**
-
-Slicers: truck number / trailer number / driver name / event date
+| Metric           | Description                                   |
+| ---------------- | --------------------------------------------- |
+| Total KM         | Total distance travelled                      |
+| Loaded KM        | Distance driven with cargo                    |
+| Empty KM         | Distance driven without cargo                 |
+| Empty %          | Share of empty distance                       |
+| Average Empty KM | Average empty leg distance                    |
+| Stop Duration    | Time spent at locations                       |
+| Wash Efficiency  | Detection of inefficient wash-station detours |
 
 ---
 
-## How to run
+## Power BI Dashboard
 
-1. Create a PostgreSQL database and schema:
+### Page 1 — Overview
+
+* Fleet activity summary
+* Trip details table
+* Filters by truck, trailer, driver, and date
+
+### Page 2 — Empty KM Analysis
+
+* Empty KM by location
+* Empty movement analysis
+* Detailed operational table
+
+### Page 3 — Additional Analytics *(currently under development)*
+
+Planned features:
+
+* Driver performance metrics
+* Trailer utilization analysis
+* Route efficiency comparison
+* Cost-related logistics KPIs
+
+---
+
+## How to Run
+
+### 1. Create Schema
+
 ```sql
 CREATE SCHEMA logistic;
 ```
 
-2. Run SQL files in this order:
-```
+### 2. Execute SQL Files
+
+Run files in the following order:
+
+```text
 DDL_schema.sql
 drivers.sql
 addtrucks.sql
@@ -99,18 +136,58 @@ trip2026_05_25-2026_06_12.sql
 vw_trip_analysis_logistic.sql
 ```
 
-3. Open `powerbi/logistic.pbix` and update the data source to point to your PostgreSQL instance:
-   - Host: `localhost`
-   - Database: `postgres`
-   - Schema: `logistic`
+### 3. Open Power BI
+
+Open:
+
+```text
+powerbi/logistic.pbix
+```
+
+Update PostgreSQL connection settings:
+
+```text
+Host: localhost
+Database: postgres
+Schema: logistic
+```
 
 ---
 
-## Tech stack
+## Tech Stack
 
-- **PostgreSQL 16** — database, schema design, window functions, views
-- **DBeaver** — SQL client
-- **Power BI Desktop** — dashboard and data visualization
+* PostgreSQL 16
+* SQL & Window Functions
+* Database Modeling
+* DBeaver
+* Power BI Desktop
+* Business Intelligence & Data Analytics
+
+---
+
+## Roadmap
+
+* Additional logistics KPIs
+* Driver utilization metrics
+* Trailer utilization dashboard
+* Route optimization analysis
+* Cost and profitability reporting
+* Enhanced Power BI dashboard design
+
+---
+
+## Author
+
+Portfolio project created to demonstrate practical skills in:
+
+* SQL Data Modeling
+* PostgreSQL
+* Power BI
+* Business Intelligence
+* Logistics Data Analytics
+
+The project is continuously evolving as new business requirements and analytical scenarios are implemented.
+
 
 ---
 
