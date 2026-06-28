@@ -1,4 +1,6 @@
-# Logistics Transport — Data Analytics Project
+# Logistics Transport — Data Analytics Project <p align="center">
+  <img src="screenshots/logistic_transport_logo_large.png" width="300">
+</p>
 
 An end-to-end data analytics project for a logistics company focused on tracking truck trips, trailer usage, driver assignments, and route efficiency across Europe.
 
