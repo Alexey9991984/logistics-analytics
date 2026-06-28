@@ -8,8 +8,8 @@ Built with **PostgreSQL** and visualized in **Power BI**.
 
 ## Dashboard preview
 
-![Dashboard Overview](screenshots/dashboard_overview.png)
-![Empty KM Analysis](screenshots/dashboard_empty_km.png)
+![Dashboard Overview](screenshots/dashboard_overview.PNG)
+![Empty KM Analysis](screenshots/dashboard_empty_km.PNG)
 
 ---
 
