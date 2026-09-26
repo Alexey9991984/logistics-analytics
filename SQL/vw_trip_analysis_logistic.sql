@@ -82,3 +82,7 @@ JOIN logistic.drivers d ON t.driver_id = d.driver_id
 LEFT JOIN logistic.trailers tl ON t.trailer_id = tl.trailer_id;	 
 
 
+	
+
+
+
